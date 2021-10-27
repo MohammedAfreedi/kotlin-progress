@@ -1,0 +1,37 @@
+fun main(){
+    var card1:StudentPerformanceCard = StudentPerformanceCard("Afreedi",10,114,95,97,99,94,99)
+    card1.printreport()
+}
+class StudentPerformanceCard(var Name:String,var Class:Int,var Kan:Int,var Eng:Int,var Hin:Int,var Mat:Int,
+                             var Sci:Int,var Soc:Int) {
+    var totalMar = Kan + Hin + Eng + Mat + Sci + Soc
+    //var
+    var totalPer:Double = (totalMar.toDouble() * 100 / 625)
+    fun printreport() {
+        println("$Name studying in $Class th class has scored $totalMar marks with $totalPer percentage")
+        print ("""
+            Report card of $Name
+            
+            Student Name : $Name
+            
+            Subject     Total marks     Min marks      MARKS OBTAINED
+            Kannada       125              44               $Kan
+            English       100              35               $Eng
+            Hindi         100              35               $Hin
+            Mathematics   100              35               $Mat
+            Science       100              35               $Sci
+            Social        100              35               $Soc
+            
+            Total         625             219              $totalMar    Percantage $totalPer %
+            Main
+            Subjects      300             105              ${Mat+Sci+Soc}   Percentage ${(Mat+Sci+Soc).toDouble()*100/300} %
+            Languages     325             114              ${Kan+Eng+Hin}   percantage ${(Kan+Hin+Eng).toDouble()*100/325} %
+            
+        """.trimIndent())
+
+        if(totalPer>60)println("The overall performance is good")
+        else if (Mat+Sci+Soc<180 && Kan+Eng+Hin>195)println("The performance is good in Languages but weak in other subjects")
+        else if(Mat+Sci+Soc>180 && Kan+Eng+Hin<195)println("The performance is weak in Languages but good in other subjects")
+        else println("The overall performance is bad")
+    }
+}
