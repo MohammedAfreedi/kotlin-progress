@@ -1,0 +1,20 @@
+//var args,default and named arguements,function overloading,single expression functions,function parameters
+
+fun main(){
+    var arr:IntArray = intArrayOf(1,2,3,4,5,6,7,8,9,10)
+    prin(5,20,30,arr)
+}
+
+fun addNumbers(a:Int,b:Int,c:Int=0,d:Int=5):Int=a+b+c+d;
+fun multiplyNums(a:Int,b:Int=1,c:Int):Int=a*b*c;
+fun sumAll(vararg numbers:Int):Int{
+    var sum:Int=0;
+    for(number in numbers)sum+=number
+    return sum
+}
+fun prin(a:Int,b:Int,c:Int, arr:IntArray){
+    println("sum function of nmbers is ${addNumbers(a,b,c)}")
+    println("multiply fun of nums is ${multiplyNums(a=a,c=c)}")
+    println("sum all of a and b is ${sumAll(*arr)}")
+    println(addNumbers(multiplyNums(a=78,c=89),3745,sumAll(345,64,2345,67,343,2345,2213,7566)))
+}
