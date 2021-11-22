@@ -1,0 +1,45 @@
+/*
+here two functions are printing prime numbers in different ranges at same time while another loop ads new line with a delay of 500ms
+*/
+
+
+import kotlinx.coroutines.*
+
+fun main () = runBlocking {
+    var bool = true
+    var bool2 = true
+    var bool3 = true
+    launch{
+        printPrime(2,100,"AA")
+        bool = false
+    }
+    launch{
+        printPrime(101,200,"BB")
+        bool2 = false
+    }
+    launch{
+        printPrime(201,300,"CC")
+        bool3 = false
+    }
+    while(bool || bool2 || bool3){
+        delay(500)
+        println()
+    }
+}
+
+suspend fun printPrime(start:Int,end:Int,functionNo:String) {
+
+    for(i in start..end){
+        delay(100)
+        var isPrime:Boolean = true;
+        for(j in 2..i/2){
+            if(i%j==0) {
+                isPrime = false
+                break
+            }
+        }
+        if(isPrime)print("$functionNo $i  ")
+    }
+
+
+}
