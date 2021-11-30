@@ -1,0 +1,197 @@
+package com.example.imagecard
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.imagecard.ui.theme.ImageCardTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Column(modifier = Modifier.fillMaxSize()){
+
+                Column(modifier = Modifier
+                    .fillMaxHeight(0.5f)
+                    .fillMaxWidth()
+                    .background(color = colorResource(id = R.color.primaryBlue))
+                    ){
+                    Box(modifier = Modifier.fillMaxSize()){
+                        Image(painter = painterResource(id = R.drawable.travel), contentDescription = null,
+                        contentScale = ContentScale.Crop)
+                        Column(modifier = Modifier.padding(15.dp)){
+                            Row(){
+                                Text(text = buildAnnotatedString {
+                                    withStyle(style = SpanStyle(color = Color.White,
+                                        fontSize = 30.sp,
+                                        fontWeight = FontWeight.Bold)){
+                                        append("travel")
+                                    }
+                                    withStyle(style = SpanStyle(color = colorResource(id = R.color.primaryBlue2),
+                                        fontSize = 30.sp,
+                                        fontWeight = FontWeight.Bold)){
+                                        append(" buzz")
+                                    }
+                                },)
+                                Image(painter = painterResource(id = R.drawable.plane2),"",
+                                    modifier = Modifier
+                                        .height(30.dp)
+                                        .width(60.dp))
+                            }
+                        }
+                        
+                    }
+                    
+
+
+                }
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Column(Modifier.padding(10.dp)){
+                        Text(text = "Pick your favourite destination", fontSize = 20.sp,
+                            style = TextStyle(color = Color.Black, fontWeight = FontWeight.Bold))
+                    }
+
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(5.dp)){
+                        Box(modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .padding(5.dp)){
+                            ImageCard(painter = painterResource(id = R.drawable.maldives),
+                                placeName ="Maldives" , modifier = Modifier )
+                        }
+                        Box(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(5.dp)){
+                            ImageCard(painter = painterResource(id = R.drawable.bali),
+                                placeName ="Bali, Indonesia" , modifier = Modifier )
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+    }
+}
+
+@Composable
+fun ImageCard(painter: Painter,placeName:String,modifier: Modifier) {
+    Card(modifier = modifier.fillMaxWidth(),
+    shape = RoundedCornerShape(10.dp),
+    elevation = 5.dp){
+        Box(modifier = Modifier.height(220.dp)){
+            Image(painter = painter,
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.Black
+                        ), startY = 200f
+                    )
+                ))
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp), contentAlignment = Alignment.BottomCenter){
+                Text(text = placeName, style = TextStyle(color = Color.White, fontSize = 20.sp))
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    Surface() {
+        Column(modifier = Modifier.fillMaxSize()){
+            Column(modifier = Modifier
+                .fillMaxHeight(0.5f)
+                .fillMaxWidth()
+                .background(color = colorResource(id = R.color.teal_200))
+                .padding(15.dp)){
+                Row(){
+                    Text(text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(color = Color.White,
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold)){
+                            append("travel")
+                        }
+                        withStyle(style = SpanStyle(color = colorResource(id = R.color.primaryBlue2),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold)){
+                            append(" buzz")
+                        }
+                    },)
+                    Image(painter = painterResource(id = R.drawable.plane2),"",
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(80.dp))
+                }
+
+            }
+            Column(modifier = Modifier.fillMaxSize()) {
+                Column(Modifier.padding(10.dp)){
+                    Text(text = "Pick your favourite destination", fontSize = 20.sp,
+                        style = TextStyle(color = Color.Black, fontWeight = FontWeight.Bold))
+                }
+
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(5.dp)){
+                    Box(modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(5.dp)){
+                        ImageCard(painter = painterResource(id = R.drawable.maldives),
+                            placeName ="Maldives" , modifier = Modifier )
+                    }
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(5.dp)){
+                        ImageCard(painter = painterResource(id = R.drawable.bali),
+                            placeName ="Bali, Indonesia" , modifier = Modifier )
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
+}
+
